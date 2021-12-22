@@ -18,3 +18,5 @@ size_t range_atozd (size_t * restrict output, const range_const_char * restrict 
 size_t range_strstr_string (const range_const_char * haystack, const char * needle);
 
 char * range_strdup (const range_const_char * input);
+
+void range_string_init (range_const_char * target, const char * input);
