@@ -2,10 +2,10 @@
 #include <sys/types.h>
 #include <string.h>
 #include <stdbool.h>
+#include <assert.h>
 #define FLAT_INCLUDES
 #include "../def.h"
 #include "../string.h"
-#include "../../debug/debug.h"
 
 range_typedef(int,test);
 
