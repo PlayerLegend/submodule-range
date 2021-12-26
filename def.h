@@ -25,7 +25,7 @@
 */
 
 #define range_is_empty(range)			\
-    ( (range).end == (range).begin )
+    ( (range).end <= (range).begin )
 /**<
    @brief Evaluates to true if the range-like structure contains no items, false otherwise
    @param range The range to be checked

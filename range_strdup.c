@@ -3,17 +3,26 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #define FLAT_INCLUDES
 #include "def.h"
 #include "string.h"
 
-char * range_strdup (const range_const_char * input)
+void range_strdup (range_char * result, range_const_char * input)
 {
     size_t input_size = range_count(*input);
-    char * retval = malloc (input_size + 1);
 
-    memcpy (retval, input->begin, input_size);
-    retval[input_size] = '\0';
+    result->begin = malloc (input_size) + 1;
 
-    return retval;
+    if (!result->begin)
+    {
+	perror ("malloc");
+	exit(1);
+    }
+
+    result->end = result->begin + input_size;
+
+    memcpy (result->begin, input->begin, input_size);
+
+    *result->end = '\0';
 }

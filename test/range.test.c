@@ -52,6 +52,34 @@ void test_range_strstr ()
     assert (8 == range_strstr(&string1, &string2));
 }
 
+void test_string_tokenize()
+{
+    range_const_char string;
+    range_string_init(&string, "asdf.bcle.1234...45273");
+
+    range_const_char token;
+
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, "asdf"));
+    
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, "bcle"));
+    
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, "1234"));
+    
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, ""));
+    
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, ""));
+    
+    assert (range_string_tokenize(&token, '.', &string));
+    assert (range_streq_string(&token, "45273"));
+    
+    assert (!range_string_tokenize(&token, '.', &string));
+}
+
 int main (int argc, char * argv[])
 {
     range_test range = {0};
@@ -83,6 +111,8 @@ int main (int argc, char * argv[])
     test_range_strstr();
 
     test_range_atozd();
+
+    test_string_tokenize();
 
     return 0;
 }
