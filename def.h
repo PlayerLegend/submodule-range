@@ -91,7 +91,7 @@
    @brief Creates non-const and const typedefs for the given range type that are of the form range_NAME and range_const_NAME, where NAME is given by the name argument. Both structures will contain the usual begin and end members of a range object, but the non-const type will contain a const_cast union member that acts as a const qualified alias to the parent.
    @param rangetype The type of the items contained within the range
    @param name The name to attach to the range
-   @param ... Additional member declarations to be placed in the resulting range structures may optionally go here. These will be union members, and so will overlap with the other members of the range, as the const_cast member does.
+   @param ... Additional member declarations to be placed in the resulting range type may optionally go here. These will be union members, and so will overlap with the other members of the range, as the const_cast member does.
 */
 
 //#define range_fread(result, tmp, file_pointer) { (result).begin = (tmp).begin; (result).end = (tmp).begin + fread( (tmp).begin, sizeof(*(tmp).begin), range_count (tmp), file_pointer ); }
@@ -143,4 +143,11 @@ range_typedef (void, void);
 */
 
 #define RANGE_FORMSPEC "%.*s"
+/**<
+   A printf format specifier for a character range
+*/
+
 #define RANGE_FORMSPEC_ARG(range) ((int)range_count(range)), (range).begin
+/**<
+   The accompanying printf argument for RANGE_FORMSPEC
+*/
