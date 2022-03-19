@@ -3,8 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <stdlib.h>
 #define FLAT_INCLUDES
 #include "../def.h"
+#include "../alloc.h"
 #include "../string.h"
 
 range_typedef(int,test);
@@ -80,6 +82,51 @@ void test_string_tokenize()
     assert (!range_string_tokenize(&token, '.', &string));
 }
 
+void test_range_copy()
+{
+    int array[] = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 9 };
+
+    range_typedef(int, int);
+
+    range_int src = { .begin = array, .end = array + sizeof(array) / sizeof(array[0]) };
+
+    range_int dst = {0};
+
+    range_copy (dst, src);
+
+    assert (src.begin != dst.begin);
+    
+    for (size_t i = 0; i < sizeof(array) / sizeof(array[0]); i++)
+    {
+	assert (src.begin[i] == dst.begin[i]);
+    }
+
+    range_clear (dst);
+}
+
+void test_range_push()
+{
+    range_typedef(int,int);
+
+    range_int target = {0};
+    
+    for (int i = 0; i < 100; i++)
+    {
+	*range_push(target) = i;
+    }
+
+    for (int i = 0; i < 100; i++)
+    {
+	int * member = target.begin + i;
+
+	assert (member < target.end);
+
+	assert (*member == i);
+    }
+
+    range_clear (target);
+}
+
 int main (int argc, char * argv[])
 {
     range_test range = {0};
@@ -113,6 +160,10 @@ int main (int argc, char * argv[])
     test_range_atozd();
 
     test_string_tokenize();
+
+    test_range_copy ();
+
+    test_range_push();
 
     return 0;
 }

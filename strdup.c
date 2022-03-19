@@ -8,11 +8,11 @@
 #include "def.h"
 #include "string.h"
 
-void range_strdup (range_char * result, range_const_char * input)
+void range_strdup (range_char * result, const range_const_char * input)
 {
     size_t input_size = range_count(*input);
 
-    result->begin = malloc (input_size) + 1;
+    result->begin = malloc (input_size + 1);
 
     if (!result->begin)
     {

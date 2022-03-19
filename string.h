@@ -19,8 +19,17 @@ size_t range_strstr_string (const range_const_char * haystack, const char * need
 
 char * range_strdup_to_string (const range_const_char * input);
 
-void range_strdup (range_char * result, range_const_char * input);
+void range_strdup (range_char * result, const range_const_char * input);
 
 void range_string_init (range_const_char * target, const char * input);
 
 bool range_string_tokenize (range_const_char * token, const char delim, range_const_char * input);
+
+static inline void range_strdup_from_string (range_char * result, const char * input)
+{
+    range_const_char input_range;
+
+    range_string_init (&input_range, input);
+
+    range_strdup (result, &input_range);
+}

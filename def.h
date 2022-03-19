@@ -51,42 +51,12 @@
    @brief Returns the index of the given element within the range
 */
 
-#define range_alloc(range, count)		\
-    {									\
-	(range).begin = malloc (sizeof (*(range).begin) * count);	\
-	(range).end = (range).begin + count;				\
-    }
-/**<
-   @brief Allocates the number of elements given by count within the given range
-   @param range The range in which to allocate elements
-   @param count The number of elements to allocate
-*/
-
-#define range_calloc(range, count)		\
-    {									\
-	(range).begin = calloc (count, sizeof (*(range).begin));		\
-	(range).end = (range).begin + count;				\
-    }
-/**<
-   @brief Allocates the number of elements given by count within the given range, with the newly allocated elements all set to 0
-   @param range The range in which to allocate elements
-   @param count The number of elements to allocate
-*/
-
-#define range_copy(dst, src)						\
-    {									\
-	size_t count = range_count(src);				\
-	range_alloc(dst, count);					\
-	memcpy((dst).begin, (src).begin, count * sizeof( *(dst).begin )); \
-	assert(sizeof(*(dst).begin) == sizeof(*(src).begin));		\
-    }
-/**<
-   @brief Copies the contents of the source array into the destination array
-*/
+typedef union { struct range(const void); } range_const_void;
+typedef union { struct range(void); range_const_void const_cast; } range_void;
 
 #define range_typedef(rangetype, name, ...)			\
-    typedef union { struct range(const rangetype); __VA_ARGS__; } range_const_##name; \
-    typedef union { struct range(rangetype); range_const_##name const_cast; __VA_ARGS__; } range_##name;
+    typedef union { struct range(const rangetype); range_const_void const_void_cast; __VA_ARGS__; } range_const_##name; \
+    typedef union { struct range(rangetype); range_const_##name const_cast; range_void void_cast; __VA_ARGS__; } range_##name;
 /**<
    @brief Creates non-const and const typedefs for the given range type that are of the form range_NAME and range_const_NAME, where NAME is given by the name argument. Both structures will contain the usual begin and end members of a range object, but the non-const type will contain a const_cast union member that acts as a const qualified alias to the parent.
    @param rangetype The type of the items contained within the range
@@ -99,7 +69,6 @@
 range_typedef (char, char);
 range_typedef (unsigned char, unsigned_char, range_char char_cast);
 range_typedef (char*, string);
-range_typedef (void, void);
 
 /**
    @union range_char 
