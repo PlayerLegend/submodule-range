@@ -34,6 +34,11 @@ bool range_streq_string (const range_const_char * a, const char * b);
    @brief Works like range_streq, except that one parameter is a null terminated string.
 */
 
+inline static bool range_memeq (const range_const_unsigned_char * a, const range_const_unsigned_char * b)
+{
+    return range_streq(&a->char_cast.const_cast, &b->char_cast.const_cast);
+}
+
 size_t range_atozd (size_t * restrict output, const range_const_char * restrict input);
 /**<
    @brief Works like atozd, but instead of a null terminated string, this function uses a range string
@@ -85,4 +90,3 @@ bool range_string_tokenize (range_const_char * token, const char delim, range_co
    @param input The input string
    @return True if a new token was found, false if input is exhausted
 */
-
