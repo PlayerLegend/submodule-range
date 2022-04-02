@@ -21,21 +21,4 @@ run-range-tests:
 
 depend: range-depend
 range-depend:
-	sh makedepend.sh src/range/range.makefile
-
-# DO NOT DELETE
-
-src/range/string_init.o: src/range/def.h src/range/string.h
-src/range/streq.o: src/range/def.h src/range/string.h
-src/range/strstr_string.o: src/range/string.h src/range/def.h
-src/range/strchr.o: src/range/def.h src/range/string.h
-src/range/strstr.o: src/range/def.h src/range/string.h
-src/range/alloc.o: src/range/def.h
-src/range/strdup_to_string.o: src/range/string.h src/range/def.h
-src/range/atozd.o: src/range/def.h src/range/string.h
-src/range/test/range.test.o: src/range/string.h src/range/def.h
-src/range/test/range.test.o: src/range/alloc.h src/range/string.h
-src/range/strdup.o: src/range/string.h src/range/def.h
-src/range/streq_string.o: src/range/string.h src/range/def.h
-src/range/path.o: src/range/def.h src/range/path.h
-src/range/string_tokenize.o: src/range/def.h src/range/string.h
+	cdeps src/range > src/range/depends.makefile
