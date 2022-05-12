@@ -36,10 +36,10 @@ bool range_streq_string (const range_const_char * a, const char * b);
 
 inline static bool range_memeq (const range_const_unsigned_char * a, const range_const_unsigned_char * b)
 {
-    return range_streq(&a->char_cast.const_cast, &b->char_cast.const_cast);
+    return range_streq(&a->char_cast.alias_const, &b->char_cast.alias_const);
 }
 
-size_t range_atozd (size_t * restrict output, const range_const_char * restrict input);
+size_t range_atozd (size_t * output, const range_const_char * input);
 /**<
    @brief Works like atozd, but instead of a null terminated string, this function uses a range string
    @param output The resulting integer

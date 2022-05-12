@@ -8,7 +8,7 @@
 void _range_clear (range_void * range);
 
 #define range_clear(range)			\
-    _range_clear (  &(range).void_cast )
+    _range_clear (  &(range).alias_void )
 
 #define range_alloc(range, count)		\
     {									\
@@ -52,4 +52,4 @@ void _range_clear (range_void * range);
 
 void _range_realloc_new (range_void * range, size_t member_size);
 
-#define range_push(target) (_range_realloc_new(&(target).void_cast, sizeof(*(target).begin)), (target).end++)
+#define range_push(target) (_range_realloc_new(&(target).alias_void, sizeof(*(target).begin)), (target).end++)

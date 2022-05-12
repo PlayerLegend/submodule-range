@@ -139,7 +139,7 @@ int main (int argc, char * argv[])
 
     assert (range_count (range) == 5);
     assert (!range_is_empty (range));
-    assert (range_count (range.const_cast) == range_count(range));
+    assert (range_count (range.alias_const) == range_count(range));
 
     for (int i = 0; i < 5; i++)
     {

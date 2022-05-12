@@ -52,11 +52,11 @@
 */
 
 typedef union { struct range(const void); } range_const_void;
-typedef union { struct range(void); range_const_void const_cast; } range_void;
+typedef union { struct range(void); range_const_void alias_const; } range_void;
 
 #define range_typedef(rangetype, name, ...)			\
-    typedef union { struct range(const rangetype); range_const_void const_void_cast; __VA_ARGS__; } range_const_##name; \
-    typedef union { struct range(rangetype); range_const_##name const_cast; range_void void_cast; __VA_ARGS__; } range_##name;
+    typedef union { struct range(const rangetype); range_const_void alias_const_void; __VA_ARGS__; } range_const_##name; \
+    typedef union { struct range(rangetype); range_const_##name alias_const; range_void alias_void; __VA_ARGS__; } range_##name;
 /**<
    @brief Creates non-const and const typedefs for the given range type that are of the form range_NAME and range_const_NAME, where NAME is given by the name argument. Both structures will contain the usual begin and end members of a range object, but the non-const type will contain a const_cast union member that acts as a const qualified alias to the parent.
    @param rangetype The type of the items contained within the range
