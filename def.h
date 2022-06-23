@@ -31,6 +31,18 @@
    @param range The range to be checked
 */
 
+#define range_pop_end(range)			\
+    ( *( --(range).end ) )
+/**<
+   @brief Removes and returns the last element in the range
+ */
+
+#define range_pop_begin(range)			\
+    ( *( (range).begin++ ) )
+/**<
+   @brief Removes and returns the first element in the range
+ */
+
 #define for_range(iter_name, object)					\
     for (iter_name = (object).begin; iter_name != (object).end; iter_name++)
 /**<
